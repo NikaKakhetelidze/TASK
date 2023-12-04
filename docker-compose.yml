@@ -1,0 +1,21 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  seesharpapi:
+    image: seesharpapi
+    build:
+      context: .
+      dockerfile: src/SeeSharp.Api/Dockerfile
+    ports:
+      - 7777:80
+    depends_on:
+      - db
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1444:1433
+    environment:
+      SA_PASSWORD: P@ssw0rd
+      ACCEPT_EULA: Y
